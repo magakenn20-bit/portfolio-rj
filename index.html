@@ -1,242 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Roland Joseph Siatela | Portfolio</title>
-  <meta name="description" content="Portfolio of Roland Joseph Siatela, Information Technology student and web developer." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css" />
-  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="Portfolio of Roland Joseph Siatela, Information Technology student and developer.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="page-loader" aria-hidden="true"><span class="loader-ring"></span></div>
+
+  <div class="loader" id="loader" aria-hidden="true"><span class="spinner"></span></div>
   <div class="cursor-glow" aria-hidden="true"></div>
 
-  <!-- ============ HEADER ============ -->
   <header class="site-header">
-    <div class="container header-inner">
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation">
-        <span></span><span></span><span></span>
-      </button>
+    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span><span></span>
+    </button>
 
-      <nav class="navigation" id="site-nav" aria-label="Main navigation">
-        <div class="tab-list" role="tablist">
-          <button class="tab-button active" role="tab" type="button" data-tab="home" aria-selected="true">Home</button>
-          <button class="tab-button" role="tab" type="button" data-tab="about" aria-selected="false">About</button>
-          <button class="tab-button" role="tab" type="button" data-tab="skills" aria-selected="false">Skills</button>
-          <button class="tab-button" role="tab" type="button" data-tab="projects" aria-selected="false">Projects</button>
-          <button class="tab-button" role="tab" type="button" data-tab="experience" aria-selected="false">Experience</button>
-          <button class="tab-button" role="tab" type="button" data-tab="contact" aria-selected="false">Contact</button>
-        </div>
-        <button class="nav-cta" type="button" data-tab="contact">Let’s talk ↗</button>
-      </nav>
-    </div>
+    <nav class="navigation" id="site-nav" aria-label="Main">
+      <div class="tab-list">
+        <button class="tab active" data-tab="home">Home</button>
+        <button class="tab" data-tab="about">About</button>
+        <button class="tab" data-tab="skills">Skills</button>
+        <button class="tab" data-tab="projects">Projects</button>
+        <button class="tab" data-tab="experience">Experience</button>
+        <button class="tab" data-tab="contact">Contact</button>
+      </div>
+      <a href="#contact" class="nav-cta" data-goto="contact">Let's talk ↗</a>
+    </nav>
   </header>
 
-  <!-- ============ MAIN ============ -->
   <main>
+
     <!-- HOME -->
-    <section id="home" class="page-panel" role="tabpanel">
-      <div class="container hero">
+    <section class="panel active" id="home">
+      <div class="hero">
         <div class="hero-text">
           <p class="status"><span class="dot"></span> Available for opportunities</p>
-          <p class="eyebrow">Information Technology Student / Web Developer</p>
-          <h1 class="hero-title">
-            <span class="line">Roland</span>
-            <span class="line outline">Joseph</span>
-            <span class="line accent">Siatela.</span>
+          <h1 class="name">
+            <span>Roland</span>
+            <span class="outline">Joseph</span>
+            <span>Siatela<b class="accent">.</b></span>
           </h1>
-          <div class="hero-actions">
-            <button class="btn btn-primary" type="button" data-tab="projects">View projects</button>
-            <button class="btn btn-ghost" type="button" data-tab="contact">Contact me</button>
+          <p class="lead">Information Technology student who loves building clean, responsive websites and useful software.</p>
+          <div class="btn-row">
+            <button class="btn primary" data-goto="projects">View projects</button>
+            <button class="btn ghost" data-goto="contact">Contact me</button>
           </div>
         </div>
 
-        <div class="hero-visual" aria-hidden="true">
-          <span class="blob blob-blue"></span>
-          <span class="blob blob-orange"></span>
-          <span class="orbit orbit-1"></span>
-          <span class="orbit orbit-2"></span>
-          <div class="code-card">
-            <div class="dots"><i></i><i></i><i></i></div>
-<pre><code><span class="k">const</span> <span class="v">developer</span> = {
-  name: <span class="s">'Roland'</span>,
-  focus: <span class="s">'web'</span>,
-  status: <span class="s">'building'</span>
+        <div class="hero-art">
+          <div class="code-card" aria-hidden="true">
+            <div class="code-bar"><span></span><span></span><span></span><em>portfolio.js</em></div>
+<pre><code><span class="k">const</span> developer = {
+  name: <span class="s">"Roland"</span>,
+  role: <span class="s">"Student developer"</span>,
+  stack: [<span class="s">"HTML"</span>, <span class="s">"CSS"</span>, <span class="s">"JS"</span>, <span class="s">"PHP"</span>],
+  available: <span class="k">true</span>
 };</code></pre>
           </div>
-          <span class="chip chip-1">HTML / CSS</span>
-          <span class="chip chip-2 orange">Creative code</span>
-          <span class="chip chip-3">Laravel</span>
+          <span class="chip c1">HTML / CSS</span>
+          <span class="chip c2">Creative code</span>
+          <span class="chip c3">Laravel</span>
         </div>
       </div>
     </section>
 
     <!-- ABOUT -->
-    <section id="about" class="page-panel" role="tabpanel" hidden>
-      <div class="container">
-        <div class="section-head">
-          <span class="tag">Who I am</span>
+    <section class="panel" id="about">
+      <div class="section-head"><span class="tag">Who I am</span></div>
+      <div class="about">
+        <div class="photo-wrap">
+          <img src="assets/profile.jpg" alt="Portrait of Roland Joseph Siatela" loading="lazy">
         </div>
-        <div class="about-grid">
-          <figure class="photo-frame">
-            <img src="assets/profile.jpg" alt="Portrait of Roland Joseph Siatela" />
-          </figure>
-          <div class="about-text">
-            <h2 class="title">Code with purpose. <span class="dim">Design with feeling.</span></h2>
-            <p class="lead">Hello! I’m Roland Joseph Siatela, an Information Technology student and aspiring web developer.</p>
-            <!-- EDIT: add more about yourself -->
-            <p>I enjoy building responsive, interactive websites and learning new technologies every day.</p>
-          </div>
+        <div class="about-text">
+          <h2>Code with purpose.<br>Design with feeling.</h2>
+          <p class="lead">I'm Roland Joseph Siatela, an Information Technology student who enjoys turning ideas into working websites and applications.</p>
+          <!-- EDIT: change this paragraph to your own words -->
+          <p>I care about clean code, good-looking layouts and sites that work on every device, from a small phone to a big monitor.</p>
         </div>
       </div>
     </section>
 
     <!-- SKILLS -->
-    <section id="skills" class="page-panel" role="tabpanel" hidden>
-      <div class="container">
-        <div class="section-head">
-          <span class="tag">My toolkit</span>
-        </div>
-        <h2 class="title">Tools for turning <span class="dim">ideas into reality.</span></h2>
-
-        <div class="skills-grid">
-          <article class="skill-card">
-            <span class="num">01</span>
-            <span class="skill-icon" aria-hidden="true"><i class="devicon-html5-plain colored"></i></span>
-            <h3>HTML</h3>
-            <p>Semantic structure and accessible web pages.</p>
-          </article>
-
-          <article class="skill-card">
-            <span class="num">02</span>
-            <span class="skill-icon" aria-hidden="true"><i class="devicon-css3-plain colored"></i></span>
-            <h3>CSS</h3>
-            <p>Responsive layouts, visual systems, and animation.</p>
-          </article>
-
-          <article class="skill-card">
-            <span class="num">03</span>
-            <span class="skill-icon" aria-hidden="true"><i class="devicon-javascript-plain colored"></i></span>
-            <h3>JavaScript</h3>
-            <p>Interactive and dynamic web experiences.</p>
-          </article>
-
-          <article class="skill-card">
-            <span class="num">04</span>
-            <span class="skill-icon" aria-hidden="true"><i class="devicon-php-plain colored"></i></span>
-            <h3>PHP</h3>
-            <p>Server-side logic and application development.</p>
-          </article>
-
-          <article class="skill-card">
-            <span class="num">05</span>
-            <span class="skill-icon" aria-hidden="true"><i class="devicon-laravel-plain colored"></i></span>
-            <h3>Laravel</h3>
-            <p>Building web applications with the Laravel framework.</p>
-          </article>
-
-          <article class="skill-card">
-            <span class="num">06</span>
-            <span class="skill-icon" aria-hidden="true"><i class="devicon-mysql-plain colored"></i></span>
-            <h3>MySQL</h3>
-            <p>Designing and querying relational databases.</p>
-          </article>
-
-          <article class="skill-card">
-            <span class="num">07</span>
-            <span class="skill-icon" aria-hidden="true">
-              <i class="devicon-git-plain colored"></i>
-              <i class="devicon-github-original"></i>
-            </span>
-            <h3>Git &amp; GitHub</h3>
-            <p>Version control and project collaboration.</p>
-          </article>
-
-          <article class="skill-card">
-            <span class="num">08</span>
-            <span class="skill-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="#22e3ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="8" y="5" width="14" height="10" rx="1.5"/>
-                <path d="M12 19h6M15 15v4"/>
-                <rect x="2" y="9" width="7" height="12" rx="1.5"/>
-                <path d="M5.5 18.5h.01"/>
-              </svg>
-            </span>
-            <h3>Responsive Design</h3>
-            <p>Interfaces that work on every screen size.</p>
-          </article>
-        </div>
+    <section class="panel" id="skills">
+      <div class="section-head"><span class="tag">My toolkit</span></div>
+      <h2>Skills &amp; technologies</h2>
+      <div class="skills-grid">
+        <article class="skill">
+          <i class="skill-icon devicon-html5-plain colored"></i>
+          <h3>HTML</h3>
+          <p>Semantic, accessible page structure.</p>
+        </article>
+        <article class="skill">
+          <i class="skill-icon devicon-css3-plain colored"></i>
+          <h3>CSS</h3>
+          <p>Layouts, animation and responsive design.</p>
+        </article>
+        <article class="skill">
+          <i class="skill-icon devicon-javascript-plain colored"></i>
+          <h3>JavaScript</h3>
+          <p>Interactive and dynamic web pages.</p>
+        </article>
+        <article class="skill">
+          <i class="skill-icon devicon-php-plain colored"></i>
+          <h3>PHP</h3>
+          <p>Server-side scripting for web apps.</p>
+        </article>
+        <article class="skill">
+          <i class="skill-icon devicon-laravel-plain colored"></i>
+          <h3>Laravel</h3>
+          <!-- EDIT: description is a placeholder -->
+          <p>Building web applications with the Laravel framework.</p>
+        </article>
+        <article class="skill">
+          <i class="skill-icon devicon-mysql-plain colored"></i>
+          <h3>MySQL</h3>
+          <!-- EDIT: description is a placeholder -->
+          <p>Designing and querying relational databases.</p>
+        </article>
+        <article class="skill">
+          <i class="skill-icon devicon-github-original"></i>
+          <h3>Git &amp; GitHub</h3>
+          <!-- EDIT: description is a placeholder -->
+          <p>Version control and publishing projects.</p>
+        </article>
+        <article class="skill">
+          <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="#22e3ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="4" width="14" height="10" rx="1.5"></rect>
+            <rect x="13" y="9" width="9" height="12" rx="1.5" fill="#070b16"></rect>
+            <path d="M6 18h4"></path>
+          </svg>
+          <h3>Responsive Design</h3>
+          <!-- EDIT: description is a placeholder -->
+          <p>Sites that look right on phones, tablets and desktops.</p>
+        </article>
       </div>
     </section>
 
-    <!-- PROJECTS (all projects removed) -->
-    <section id="projects" class="page-panel" role="tabpanel" hidden>
-      <div class="container">
-        <div class="section-head">
-          <span class="tag">Selected work</span>
-        </div>
-        <h2 class="title">Building things <span class="dim">that matter.</span></h2>
-        <p class="lead">Projects coming soon.</p>
+    <!-- PROJECTS -->
+    <section class="panel" id="projects">
+      <div class="section-head"><span class="tag">Selected work</span></div>
+      <h2>Building things that matter.</h2>
+
+      <div class="project-grid">
+
+        <!-- PROJECT 1 -->
+        <article class="project-card featured">
+          <a class="project-media" href="assets/project1.jpg" target="_blank" rel="noopener" aria-label="Open the full screenshot of the Library Management System">
+            <img src="assets/project1.jpg" alt="Library Management System login form designed in Visual Studio" loading="lazy">
+          </a>
+          <div class="project-body">
+            <ul class="project-tags">
+              <li>C#</li>
+              <li>Windows Forms</li>
+              <li>Visual Studio</li>
+            </ul>
+            <h3>Library Management System</h3>
+
+            <!-- EDIT: change these paragraphs if your project does more (or less) than described -->
+            <p>A Windows desktop application for managing a library, built with C# and Windows Forms in Visual Studio. This is the entry point of the system, where users sign in or create an account before using the app.</p>
+
+            <p><strong>Login screen:</strong> a clean form with username, password and confirm password fields, a "Show Password" checkbox so users can check what they typed, a Sign In button and a Create Account button that opens a separate registration form.</p>
+
+            <p><strong>Design:</strong> a borderless custom window with a navy and green colour scheme, a library logo, a "Welcome, Please Login!" message and a vertical "LOGIN FORM" banner along the side.</p>
+
+            <p><strong>What I practised:</strong> designing Windows Forms layouts, working with multiple forms (login, registration and main form) and building a simple, user-friendly interface.</p>
+
+            <a class="project-link" href="assets/project1.jpg" target="_blank" rel="noopener">View full screenshot ↗</a>
+          </div>
+        </article>
+
+        <!-- To add another project, copy the whole <article> block above and paste it here. -->
+
       </div>
     </section>
 
     <!-- EXPERIENCE -->
-    <section id="experience" class="page-panel" role="tabpanel" hidden>
-      <div class="container">
-        <div class="section-head">
-          <span class="tag">My journey</span>
-        </div>
-        <h2 class="title">Still learning. <span class="dim">Always building.</span></h2>
-        <div class="timeline">
-          <article class="timeline-item">
-            <span class="date">2025 — Present</span>
-            <div>
-              <h3>Information Technology Student</h3>
-              <span class="role">Education</span>
-              <p>Focused on building responsive and interactive web applications while developing a strong foundation in information technology.</p>
-            </div>
-          </article>
-          <article class="timeline-item">
-            <span class="date">2025 — Present</span>
-            <div>
-              <h3>Student Developer</h3>
-              <span class="role">Personal projects</span>
-              <!-- EDIT: description -->
-              <p>Creating personal projects to practice front-end and back-end development.</p>
-            </div>
-          </article>
-        </div>
+    <section class="panel" id="experience">
+      <div class="section-head"><span class="tag">My journey</span></div>
+      <h2>Experience</h2>
+      <div class="timeline">
+        <article class="t-item">
+          <span class="t-date">2025 — Present</span>
+          <h3>Information Technology Student</h3>
+          <p class="t-sub">Education</p>
+          <p>Studying IT and building skills in web development and programming.</p>
+        </article>
+        <article class="t-item">
+          <span class="t-date">2025 — Present</span>
+          <h3>Student Developer</h3>
+          <p class="t-sub">Personal projects</p>
+          <!-- EDIT: placeholder description -->
+          <p>Creating websites and applications to practice and grow as a developer.</p>
+        </article>
       </div>
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="page-panel" role="tabpanel" hidden>
-      <div class="container">
-        <div class="section-head">
-          <span class="tag">Start a conversation</span>
-        </div>
-        <p class="eyebrow">Have an idea or opportunity?</p>
-        <h2 class="title big">Let’s create <span class="dim">something great.</span></h2>
-        <div class="contact-links">
-          <a class="contact-card" href="https://github.com/rjsiatelaaa-123" target="_blank" rel="noopener noreferrer">GitHub <span>↗</span></a>
-          <a class="contact-card" href="https://www.linkedin.com/in/roland-joseph-siatela-075972448" target="_blank" rel="noopener noreferrer">LinkedIn <span>↗</span></a>
-          <a class="contact-card" href="mailto:rjsiatelaaa@gmail.com">Email <span>↗</span></a>
-        </div>
+    <section class="panel" id="contact">
+      <div class="section-head"><span class="tag">Start a conversation</span></div>
+      <h2>Let's work together.</h2>
+      <div class="contact-grid">
+        <a class="contact-card" href="https://github.com/rjsiatelaaa-123" target="_blank" rel="noopener">
+          <span class="c-label">GitHub</span>
+          <span class="c-value">rjsiatelaaa-123 ↗</span>
+        </a>
+        <a class="contact-card" href="https://www.linkedin.com/in/roland-joseph-siatela-075972448" target="_blank" rel="noopener">
+          <span class="c-label">LinkedIn</span>
+          <span class="c-value">Roland Joseph Siatela ↗</span>
+        </a>
+        <a class="contact-card" href="mailto:rjsiatelaaa@gmail.com">
+          <span class="c-label">Email</span>
+          <span class="c-value">rjsiatelaaa@gmail.com</span>
+        </a>
       </div>
     </section>
+
   </main>
 
-  <!-- ============ FOOTER ============ -->
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <span>© <span id="current-year">2026</span> Roland Joseph Siatela</span>
-      <span>Built with HTML, CSS &amp; JavaScript</span>
-      <span>portfolio-rj</span>
-    </div>
+    <span>© <span id="year">2025</span> Roland Joseph Siatela</span>
+    <span>Built with HTML, CSS &amp; JavaScript</span>
+    <span>portfolio-rj</span>
   </footer>
 
   <script src="script.js"></script>
