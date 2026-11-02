@@ -1,9 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   const loader = document.querySelector(".page-loader");
+  const brand = document.querySelector(".brand");
   const menuToggle = document.querySelector(".menu-toggle");
   const navigation = document.querySelector(".navigation");
-  const navLinks = document.querySelectorAll(".navigation a");
-  const sections = document.querySelectorAll(".page-section");
+  const tabButtons = [...document.querySelectorAll(".tab-button")];
+  const actionButtons = document.querySelectorAll("[data-tab]");
+  const panels = [...document.querySelectorAll(".page-panel")];
   const currentYear = document.querySelector("#current-year");
   const cursorGlow = document.querySelector(".cursor-glow");
 
@@ -20,36 +22,8 @@ if (currentYear) {
     currentYear.textContent = new Date().getFullYear();
   }
 
-function showPage(pageId, updateUrl = true) {
-    const requestedPage = document.getElementById(pageId);
-    const activePage = requestedPage || document.getElementById("home");
-
-if (!activePage) {
-      return;
-    }
-
-sections.forEach((section) => {
-      section.classList.remove("active-page");
-      section.setAttribute("aria-hidden", "true");
-    });
-
-activePage.classList.add("active-page");
-    activePage.setAttribute("aria-hidden", "false");
-
-navLinks.forEach((link) => {
-      const linkId = link.getAttribute("href").replace("#", "");
-      const isActive = linkId === activePage.id;
-
-link.classList.toggle("active", isActive);
-
-if (isActive) {
-        link.setAttribute("aria-current", "page");
-      } else {
-        link.removeAttribute("aria-current");
-      }
-    });
-
-if (navigation) {
+function closeMobileMenu() {
+    if (navigation) {
       navigation.classList.remove("open");
     }
 
@@ -60,27 +34,74 @@ if (menuToggle) {
     }
 
 document.body.classList.remove("menu-open");
-
-if (updateUrl) {
-      history.pushState(null, "", `#${activePage.id}`);
-    }
   }
 
-document.addEventListener("click", (event) => {
-    const link = event.target.closest('a[href^="#"]');
+function openTab(tabId, updateUrl = true) {
+    const selectedPanel = document.getElementById(tabId);
+    const fallbackPanel = document.getElementById("home");
+    const activePanel = selectedPanel || fallbackPanel;
 
-if (!link) {
+if (!activePanel) {
       return;
     }
 
-const pageId = link.getAttribute("href").replace("#", "");
+panels.forEach((panel) => {
+      const isActive = panel === activePanel;
 
-if (!document.getElementById(pageId)) {
-      return;
+panel.hidden = !isActive;
+      panel.setAttribute("aria-hidden", String(!isActive));
+      panel.classList.toggle("active-panel", isActive);
+    });
+
+tabButtons.forEach((button) => {
+      const isActive = button.dataset.tab === activePanel.id;
+
+button.classList.toggle("active", isActive);
+      button.setAttribute("aria-selected", String(isActive));
+      button.tabIndex = isActive ? 0 : -1;
+    });
+
+if (updateUrl) {
+      window.history.pushState(null, "", `#${activePanel.id}`);
     }
 
-event.preventDefault();
-    showPage(pageId);
+closeMobileMenu();
+  }
+
+actionButtons.forEach((element) => {
+    element.addEventListener("click", () => {
+      openTab(element.dataset.tab);
+    });
+  });
+
+tabButtons.forEach((button, index) => {
+    button.addEventListener("keydown", (event) => {
+      let nextIndex = index;
+
+if (event.key === "ArrowRight") {
+        nextIndex = (index + 1) % tabButtons.length;
+      }
+
+if (event.key === "ArrowLeft") {
+        nextIndex = (index - 1 + tabButtons.length) % tabButtons.length;
+      }
+
+if (event.key === "Home") {
+        nextIndex = 0;
+      }
+
+if (event.key === "End") {
+        nextIndex = tabButtons.length - 1;
+      }
+
+if (nextIndex !== index) {
+        event.preventDefault();
+
+const nextButton = tabButtons[nextIndex];
+        nextButton.focus();
+        openTab(nextButton.dataset.tab);
+      }
+    });
   });
 
 if (menuToggle && navigation) {
@@ -98,18 +119,18 @@ document.body.classList.toggle("menu-open", isOpen);
     });
   }
 
-const firstPage = window.location.hash
-    ? window.location.hash.replace("#", "")
+const initialTab = window.location.hash
+    ? window.location.hash.substring(1)
     : "home";
 
-showPage(firstPage, false);
+openTab(initialTab, false);
 
 window.addEventListener("popstate", () => {
-    const pageId = window.location.hash
-      ? window.location.hash.replace("#", "")
+    const tabId = window.location.hash
+      ? window.location.hash.substring(1)
       : "home";
 
-showPage(pageId, false);
+openTab(tabId, false);
   });
 
 if (
