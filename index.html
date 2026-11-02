@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#070b16">
   <title>Roland Joseph Siatela | Portfolio</title>
   <meta name="description" content="Portfolio of Roland Joseph Siatela, Information Technology student and developer.">
 
@@ -10,7 +11,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=5">
+
+  <noscript>
+    <style>.loader{display:none}.panel{display:block}</style>
+  </noscript>
 </head>
 <body>
 
@@ -18,18 +23,18 @@
   <div class="cursor-glow" aria-hidden="true"></div>
 
   <header class="site-header">
-    <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-nav">
+    <button type="button" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-nav">
       <span></span><span></span><span></span>
     </button>
 
     <nav class="navigation" id="site-nav" aria-label="Main">
       <div class="tab-list">
-        <button class="tab active" data-tab="home">Home</button>
-        <button class="tab" data-tab="about">About</button>
-        <button class="tab" data-tab="skills">Skills</button>
-        <button class="tab" data-tab="projects">Projects</button>
-        <button class="tab" data-tab="experience">Experience</button>
-        <button class="tab" data-tab="contact">Contact</button>
+        <button type="button" class="tab active" data-tab="home">Home</button>
+        <button type="button" class="tab" data-tab="about">About</button>
+        <button type="button" class="tab" data-tab="skills">Skills</button>
+        <button type="button" class="tab" data-tab="projects">Projects</button>
+        <button type="button" class="tab" data-tab="experience">Experience</button>
+        <button type="button" class="tab" data-tab="contact">Contact</button>
       </div>
       <a href="#contact" class="nav-cta" data-goto="contact">Let's talk ↗</a>
     </nav>
@@ -49,8 +54,8 @@
           </h1>
           <p class="lead">Information Technology student who loves building clean, responsive websites and useful software.</p>
           <div class="btn-row">
-            <button class="btn primary" data-goto="projects">View projects</button>
-            <button class="btn ghost" data-goto="contact">Contact me</button>
+            <button type="button" class="btn primary" data-goto="projects">View projects</button>
+            <button type="button" class="btn ghost" data-goto="contact">Contact me</button>
           </div>
         </div>
 
@@ -151,7 +156,7 @@
       <div class="project-grid">
 
         <!-- PROJECT 1 -->
-        <article class="project-card featured">
+        <article class="project-card">
           <a class="project-media" href="assets/project1.jpg" target="_blank" rel="noopener" aria-label="Open the full screenshot of the Library Management System">
             <img src="assets/project1.jpg" alt="Library Management System login form designed in Visual Studio" loading="lazy">
           </a>
@@ -230,6 +235,6 @@
     <span>portfolio-rj</span>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=5"></script>
 </body>
 </html>

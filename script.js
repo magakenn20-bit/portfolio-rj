@@ -13,12 +13,23 @@
     nav.classList.remove('open');
     toggle.setAttribute('aria-expanded', 'false');
   }
-  toggle.addEventListener('click', () => {
+  toggle.addEventListener('click', e => {
+    e.stopPropagation();
     const open = nav.classList.toggle('open');
     toggle.setAttribute('aria-expanded', String(open));
   });
+  // Tap outside the menu to close it
+  document.addEventListener('click', e => {
+    if (!nav.classList.contains('open')) return;
+    if (!nav.contains(e.target) && !toggle.contains(e.target)) closeMenu();
+  });
+  // Esc closes the menu
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeMenu();
+  });
+  // Reset the menu when the screen is resized or rotated
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 900) closeMenu();
   });
 
   /* Tabs */
@@ -50,14 +61,15 @@
     if (e.altKey || e.ctrlKey || e.metaKey) return;
     if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
     if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-    const current = ids.indexOf(panels.find(p => p.classList.contains('active')).id);
+    const activePanel = panels.find(p => p.classList.contains('active'));
+    const current = ids.indexOf(activePanel ? activePanel.id : 'home');
     const next = e.key === 'ArrowRight'
       ? (current + 1) % ids.length
       : (current - 1 + ids.length) % ids.length;
     openTab(ids[next]);
   });
 
-  /* URL hash */
+  /* URL hash (back/forward buttons and direct links) */
   window.addEventListener('hashchange', () => openTab(location.hash.slice(1), false));
   openTab(location.hash.slice(1) || 'home', false);
 
@@ -66,7 +78,7 @@
   window.addEventListener('load', () => setTimeout(hideLoader, 300));
   setTimeout(hideLoader, 3000); // safety fallback
 
-  /* Cursor glow */
+  /* Cursor glow (mouse devices only) */
   if (glow && window.matchMedia('(hover: hover)').matches) {
     window.addEventListener('mousemove', e => {
       glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
