@@ -3,31 +3,87 @@ document.addEventListener("DOMContentLoaded", () => {
   const menuToggle = document.querySelector(".menu-toggle");
   const navigation = document.querySelector(".navigation");
   const navLinks = document.querySelectorAll(".navigation a");
-  const revealElements = document.querySelectorAll(".reveal");
+  const sections = document.querySelectorAll(".page-section");
   const currentYear = document.querySelector("#current-year");
   const cursorGlow = document.querySelector(".cursor-glow");
 
-/*
-    Hide the loading screen.
-    This runs even if other optional effects fail.
-  */
-  if (loader) {
-    window.setTimeout(() => {
+function hideLoader() {
+    if (loader) {
       loader.classList.add("hidden");
-    }, 500);
+    }
   }
 
-/*
-    Add the current year to the footer.
-  */
-  if (currentYear) {
+setTimeout(hideLoader, 500);
+  window.addEventListener("load", hideLoader);
+
+if (currentYear) {
     currentYear.textContent = new Date().getFullYear();
   }
 
-/*
-    Mobile navigation.
-  */
-  if (menuToggle && navigation) {
+function showPage(pageId, updateUrl = true) {
+    const requestedPage = document.getElementById(pageId);
+    const activePage = requestedPage || document.getElementById("home");
+
+if (!activePage) {
+      return;
+    }
+
+sections.forEach((section) => {
+      section.classList.remove("active-page");
+      section.setAttribute("aria-hidden", "true");
+    });
+
+activePage.classList.add("active-page");
+    activePage.setAttribute("aria-hidden", "false");
+
+navLinks.forEach((link) => {
+      const linkId = link.getAttribute("href").replace("#", "");
+      const isActive = linkId === activePage.id;
+
+link.classList.toggle("active", isActive);
+
+if (isActive) {
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    });
+
+if (navigation) {
+      navigation.classList.remove("open");
+    }
+
+if (menuToggle) {
+      menuToggle.classList.remove("active");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Open navigation");
+    }
+
+document.body.classList.remove("menu-open");
+
+if (updateUrl) {
+      history.pushState(null, "", `#${activePage.id}`);
+    }
+  }
+
+document.addEventListener("click", (event) => {
+    const link = event.target.closest('a[href^="#"]');
+
+if (!link) {
+      return;
+    }
+
+const pageId = link.getAttribute("href").replace("#", "");
+
+if (!document.getElementById(pageId)) {
+      return;
+    }
+
+event.preventDefault();
+    showPage(pageId);
+  });
+
+if (menuToggle && navigation) {
     menuToggle.addEventListener("click", () => {
       const isOpen = navigation.classList.toggle("open");
 
@@ -40,94 +96,29 @@ menuToggle.classList.toggle("active", isOpen);
 
 document.body.classList.toggle("menu-open", isOpen);
     });
-
-navLinks.forEach((link) => {
-      link.addEventListener("click", () => {
-        navigation.classList.remove("open");
-        menuToggle.classList.remove("active");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Open navigation");
-        document.body.classList.remove("menu-open");
-      });
-    });
   }
 
-/*
-    Reveal sections while scrolling.
-  */
-  if ("IntersectionObserver" in window) {
-    const revealObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.12,
-      }
-    );
+const firstPage = window.location.hash
+    ? window.location.hash.replace("#", "")
+    : "home";
 
-revealElements.forEach((element) => {
-      revealObserver.observe(element);
-    });
-  } else {
-    revealElements.forEach((element) => {
-      element.classList.add("visible");
-    });
-  }
+showPage(firstPage, false);
 
-/*
-    Highlight the navigation link for the visible section.
-  */
-  const sections = document.querySelectorAll("main section[id]");
+window.addEventListener("popstate", () => {
+    const pageId = window.location.hash
+      ? window.location.hash.replace("#", "")
+      : "home";
 
-if ("IntersectionObserver" in window && sections.length > 0) {
-    const sectionObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            navLinks.forEach((link) => {
-              link.classList.remove("active");
+showPage(pageId, false);
+  });
 
-if (link.getAttribute("href") === `#${entry.target.id}`) {
-                link.classList.add("active");
-              }
-            });
-          }
-        });
-      },
-      {
-        rootMargin: "-35% 0px -55% 0px",
-      }
-    );
-
-sections.forEach((section) => {
-      sectionObserver.observe(section);
-    });
-  }
-
-/*
-    Desktop cursor glow.
-  */
-  if (cursorGlow && window.matchMedia("(pointer: fine)").matches) {
+if (
+    cursorGlow &&
+    window.matchMedia("(pointer: fine)").matches
+  ) {
     window.addEventListener("mousemove", (event) => {
       cursorGlow.style.left = `${event.clientX}px`;
       cursorGlow.style.top = `${event.clientY}px`;
     });
-  }
-});
-
-/*
-  Backup: always hide the loader after the page finishes loading.
-  This protects against the page remaining stuck if an optional script fails.
-*/
-window.addEventListener("load", () => {
-  const loader = document.querySelector(".page-loader");
-
-if (loader) {
-    loader.classList.add("hidden");
   }
 });
