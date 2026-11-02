@@ -21,7 +21,7 @@
 }
 
 /* =========================
-   Base
+   Reset and base styles
 ========================= */
 
 * {
@@ -62,6 +62,10 @@ button {
   background: transparent;
   color: inherit;
   cursor: pointer;
+}
+
+img {
+  max-width: 100%;
 }
 
 ::selection {
@@ -216,7 +220,7 @@ button {
 }
 
 /* =========================
-   Hero
+   Hero section
 ========================= */
 
 .hero {
@@ -494,7 +498,7 @@ button {
 }
 
 /* =========================
-   Sections
+   Shared sections
 ========================= */
 
 .content-section,
@@ -530,16 +534,73 @@ button {
 }
 
 /* =========================
-   About
+   About section
 ========================= */
 
 .about-grid {
+  align-items: center;
   display: grid;
-  gap: 5rem;
-  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 7vw, 6rem);
+  grid-template-columns: minmax(250px, 430px) 1fr;
+}
+
+.profile-card {
+  max-width: 430px;
+  width: 100%;
+}
+
+.profile-image-wrapper {
+  aspect-ratio: 4 / 5;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  position: relative;
+}
+
+.profile-image-wrapper::before {
+  border: 1px solid rgba(37, 230, 255, 0.45);
+  content: "";
+  inset: 14px;
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+}
+
+.profile-image {
+  display: block;
+  filter: saturate(0.9) contrast(1.05);
+  height: 100%;
+  object-fit: cover;
+  transition:
+    filter 0.6s ease,
+    transform 0.6s ease;
+  width: 100%;
+}
+
+.profile-image-wrapper:hover .profile-image {
+  filter: saturate(1.15) contrast(1.1);
+  transform: scale(1.06);
+}
+
+.profile-image-label {
+  background: var(--background);
+  bottom: 1rem;
+  color: var(--cyan);
+  font-family: var(--mono-font);
+  font-size: 0.62rem;
+  left: 1rem;
+  padding: 0.5rem 0.7rem;
+  position: absolute;
+  text-transform: uppercase;
+  z-index: 3;
+}
+
+.about-content {
+  max-width: 650px;
 }
 
 .about-copy {
+  margin-top: 2.5rem;
   max-width: 570px;
 }
 
@@ -555,6 +616,10 @@ button {
   line-height: 1.2;
 }
 
+/* =========================
+   Links
+========================= */
+
 .text-link {
   border-bottom: 1px solid var(--cyan);
   color: var(--cyan);
@@ -565,8 +630,8 @@ button {
   padding-bottom: 0.4rem;
   text-transform: uppercase;
   transition:
-    color 0.25s ease,
-    border-color 0.25s ease;
+    border-color 0.25s ease,
+    color 0.25s ease;
 }
 
 .text-link:hover {
@@ -879,6 +944,15 @@ button {
   font-weight: 500;
 }
 
+.experience-company {
+  color: var(--cyan) !important;
+  font-family: var(--mono-font);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  margin: 0.5rem 0 !important;
+  text-transform: uppercase;
+}
+
 .experience-item p {
   color: var(--muted);
   margin-top: 0.7rem;
@@ -939,8 +1013,8 @@ button {
   margin-top: 4rem;
   padding-bottom: 0.5rem;
   transition:
-    color 0.25s ease,
-    border-color 0.25s ease;
+    border-color 0.25s ease,
+    color 0.25s ease;
 }
 
 .contact-email:hover {
@@ -963,8 +1037,8 @@ button {
   padding-bottom: 0.4rem;
   text-transform: uppercase;
   transition:
-    color 0.25s ease,
-    border-color 0.25s ease;
+    border-color 0.25s ease,
+    color 0.25s ease;
 }
 
 .contact-socials a:hover {
@@ -986,7 +1060,7 @@ button {
 }
 
 /* =========================
-   Scroll reveal animation
+   Scroll reveal
 ========================= */
 
 .reveal {
@@ -1003,7 +1077,7 @@ button {
 }
 
 /* =========================
-   Keyframes
+   Animations
 ========================= */
 
 @keyframes floating-card {
@@ -1079,6 +1153,14 @@ to {
 .about-grid {
     gap: 3rem;
     grid-template-columns: 1fr;
+  }
+
+.profile-card {
+    margin: 0 auto;
+  }
+
+.about-content {
+    max-width: none;
   }
 
 .skills-grid {
@@ -1233,6 +1315,10 @@ to {
     font-size: clamp(2.7rem, 13vw, 5rem);
   }
 
+.profile-card {
+    max-width: 330px;
+  }
+
 .skills-grid {
     grid-template-columns: 1fr;
   }
@@ -1305,7 +1391,7 @@ to {
 }
 
 /* =========================
-   Accessibility
+   Reduced motion accessibility
 ========================= */
 
 @media (prefers-reduced-motion: reduce) {
