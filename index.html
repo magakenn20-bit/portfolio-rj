@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -101,57 +102,85 @@
           <span class="tag">My toolkit</span>
         </div>
         <h2 class="title">Tools for turning <span class="dim">ideas into reality.</span></h2>
+
         <div class="skills-grid">
-          <article class="skill-card"><span class="num">01</span><h3>HTML</h3><p>Semantic structure and accessible web pages.</p></article>
-          <article class="skill-card"><span class="num">02</span><h3>CSS</h3><p>Responsive layouts, visual systems, and animation.</p></article>
-          <article class="skill-card"><span class="num">03</span><h3>JavaScript</h3><p>Interactive and dynamic web experiences.</p></article>
-          <article class="skill-card"><span class="num">04</span><h3>PHP</h3><p>Server-side logic and application development.</p></article>
-          <!-- EDIT: skills 05-08 are placeholders -->
-          <article class="skill-card"><span class="num">05</span><h3>Laravel</h3><p>Building web applications with the Laravel framework.</p></article>
-          <article class="skill-card"><span class="num">06</span><h3>MySQL</h3><p>Designing and querying relational databases.</p></article>
-          <article class="skill-card"><span class="num">07</span><h3>Git &amp; GitHub</h3><p>Version control and project collaboration.</p></article>
-          <article class="skill-card"><span class="num">08</span><h3>Responsive Design</h3><p>Interfaces that work on every screen size.</p></article>
+          <article class="skill-card">
+            <span class="num">01</span>
+            <span class="skill-icon" aria-hidden="true"><i class="devicon-html5-plain colored"></i></span>
+            <h3>HTML</h3>
+            <p>Semantic structure and accessible web pages.</p>
+          </article>
+
+          <article class="skill-card">
+            <span class="num">02</span>
+            <span class="skill-icon" aria-hidden="true"><i class="devicon-css3-plain colored"></i></span>
+            <h3>CSS</h3>
+            <p>Responsive layouts, visual systems, and animation.</p>
+          </article>
+
+          <article class="skill-card">
+            <span class="num">03</span>
+            <span class="skill-icon" aria-hidden="true"><i class="devicon-javascript-plain colored"></i></span>
+            <h3>JavaScript</h3>
+            <p>Interactive and dynamic web experiences.</p>
+          </article>
+
+          <article class="skill-card">
+            <span class="num">04</span>
+            <span class="skill-icon" aria-hidden="true"><i class="devicon-php-plain colored"></i></span>
+            <h3>PHP</h3>
+            <p>Server-side logic and application development.</p>
+          </article>
+
+          <article class="skill-card">
+            <span class="num">05</span>
+            <span class="skill-icon" aria-hidden="true"><i class="devicon-laravel-plain colored"></i></span>
+            <h3>Laravel</h3>
+            <p>Building web applications with the Laravel framework.</p>
+          </article>
+
+          <article class="skill-card">
+            <span class="num">06</span>
+            <span class="skill-icon" aria-hidden="true"><i class="devicon-mysql-plain colored"></i></span>
+            <h3>MySQL</h3>
+            <p>Designing and querying relational databases.</p>
+          </article>
+
+          <article class="skill-card">
+            <span class="num">07</span>
+            <span class="skill-icon" aria-hidden="true">
+              <i class="devicon-git-plain colored"></i>
+              <i class="devicon-github-original"></i>
+            </span>
+            <h3>Git &amp; GitHub</h3>
+            <p>Version control and project collaboration.</p>
+          </article>
+
+          <article class="skill-card">
+            <span class="num">08</span>
+            <span class="skill-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="#22e3ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="8" y="5" width="14" height="10" rx="1.5"/>
+                <path d="M12 19h6M15 15v4"/>
+                <rect x="2" y="9" width="7" height="12" rx="1.5"/>
+                <path d="M5.5 18.5h.01"/>
+              </svg>
+            </span>
+            <h3>Responsive Design</h3>
+            <p>Interfaces that work on every screen size.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- PROJECTS -->
+    <!-- PROJECTS (all projects removed) -->
     <section id="projects" class="page-panel" role="tabpanel" hidden>
       <div class="container">
         <div class="section-head">
           <span class="tag">Selected work</span>
         </div>
         <h2 class="title">Building things <span class="dim">that matter.</span></h2>
-        <div class="projects-grid">
-          <article class="project-card">
-            <div class="project-visual v1"><span class="label">Future / 01</span><span class="orb"></span><span class="ghost">AI</span></div>
-            <div class="project-body">
-              <div class="meta"><span>01 / Future concept</span><span>2026</span></div>
-              <h3>AI Concept</h3>
-              <!-- EDIT: description -->
-              <p>An exploration of AI-inspired interface design.</p>
-            </div>
-          </article>
-          <article class="project-card">
-            <div class="project-visual v2"><span class="label">Creative / 02</span><span class="orb"></span></div>
-            <div class="project-body">
-              <div class="meta"><span>01 / Creative concept</span><span>2026</span></div>
-              <h3>Creative Concept</h3>
-              <!-- EDIT: description -->
-              <p>A creative front-end experiment with HTML, CSS and JavaScript.</p>
-            </div>
-          </article>
-          <article class="project-card">
-            <div class="project-visual v3"><span class="label">Laravel / 03</span><span class="orb"></span></div>
-            <div class="project-body">
-              <div class="meta"><span>03 / Web application</span><span>2026</span></div>
-              <h3>Laravel Project</h3>
-              <!-- EDIT: description and repo link -->
-              <p>A web application built with Laravel.</p>
-              <a class="link" href="https://github.com/rjsiatelaaa-123" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a>
-            </div>
-          </article>
-        </div>
+        <p class="lead">Projects coming soon.</p>
       </div>
     </section>
 

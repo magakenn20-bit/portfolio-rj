@@ -70,7 +70,7 @@ h1, h2, h3, p { margin: 0; }
   pointer-events: none;
 }
 
-/* ================= HEADER (no logo) ================= */
+/* ================= HEADER ================= */
 .site-header {
   position: sticky; top: 0; z-index: 100;
   background: rgba(7, 11, 22, 0.85);
@@ -158,6 +158,8 @@ main { flex: 1 0 auto; position: relative; z-index: 1; }
 }
 .title.big { font-size: clamp(2.6rem, 8vw, 6.5rem); }
 .dim { display: block; color: #8a93b0; }
+
+.lead { font-size: clamp(1.15rem, 2.2vw, 1.7rem); line-height: 1.4; margin-bottom: 1rem; }
 
 /* ================= HOME ================= */
 #home { display: grid; align-items: center; }
@@ -261,82 +263,49 @@ main { flex: 1 0 auto; position: relative; z-index: 1; }
 }
 .photo-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top center; border-radius: 3px; }
 .about-text .title { margin-bottom: 1.5rem; }
-.lead { font-size: clamp(1.15rem, 2.2vw, 1.7rem); line-height: 1.4; margin-bottom: 1rem; }
 .about-text p { color: var(--muted); max-width: 60ch; }
 .about-text .lead { color: var(--text); }
 
-/* ================= SKILLS ================= */
+/* ================= SKILLS (with logos) ================= */
 .skills-grid {
-  display: grid; gap: 1px;
+  display: grid;
+  gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  background: var(--line); border: 1px solid var(--line);
 }
+
 .skill-card {
+  position: relative;
   display: flex; flex-direction: column; justify-content: flex-end; gap: 0.4rem;
   min-height: 190px; padding: 1.5rem;
-  background: var(--panel); transition: background 0.25s;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  transition: background 0.25s, border-color 0.25s, transform 0.25s;
 }
-.skill-card:hover { background: #131d36; }
+.skill-card:hover {
+  background: #131d36;
+  border-color: rgba(34, 227, 255, 0.4);
+  transform: translateY(-3px);
+}
 .skill-card .num { margin-bottom: auto; font-family: var(--mono); font-size: 0.78rem; color: var(--cyan); }
 .skill-card h3 { font-size: 1.4rem; }
 .skill-card p { font-size: 0.92rem; color: var(--muted); }
 
-/* ================= PROJECTS ================= */
-.projects-grid {
-  display: grid; gap: clamp(1rem, 2.5vw, 2rem);
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+.skill-icon {
+  position: absolute;
+  top: 1.2rem; right: 1.4rem;
+  display: flex; align-items: center; gap: 0.6rem;
+  font-size: 2.1rem; line-height: 1;
+  transition: transform 0.25s;
 }
-.project-card {
-  display: flex; flex-direction: column; overflow: hidden;
-  background: var(--panel); border: 1px solid var(--line);
-  transition: transform 0.25s, border-color 0.25s;
-}
-.project-card:hover { transform: translateY(-4px); border-color: rgba(34, 227, 255, 0.4); }
+.skill-icon i,
+.skill-icon svg { display: block; }
+.skill-card:hover .skill-icon { transform: scale(1.12) rotate(-4deg); }
 
-.project-visual {
-  position: relative; height: 220px; overflow: hidden;
-  background:
-    linear-gradient(rgba(34, 227, 255, 0.07) 1px, transparent 1px) 0 0 / 36px 36px,
-    linear-gradient(90deg, rgba(34, 227, 255, 0.07) 1px, transparent 1px) 0 0 / 36px 36px,
-    linear-gradient(135deg, #0c1a3a, #081020);
-}
-.project-visual.v2 { filter: hue-rotate(60deg); }
-.project-visual.v3 { filter: hue-rotate(-40deg); }
-.project-visual .label {
-  position: absolute; left: 1.25rem; top: 1.1rem;
-  font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em;
-  text-transform: uppercase; color: var(--cyan);
-}
-.project-visual .orb {
-  position: absolute; left: 50%; top: 50%;
-  width: 110px; height: 110px; border-radius: 50%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle at 35% 30%, #7ef4ff, #1a7f9a 45%, #04141c 90%);
-  box-shadow: 0 0 60px rgba(34, 227, 255, 0.35);
-}
-.project-visual .orb::after {
-  content: ""; position: absolute; inset: -22% -45%;
-  border: 2px solid var(--orange); border-radius: 50%; transform: rotate(-35deg);
-}
-.project-visual .ghost {
-  position: absolute; right: 1rem; bottom: -0.5rem;
-  font-size: 6rem; font-weight: 700; color: rgba(255, 255, 255, 0.06);
-}
-
-.project-body { display: flex; flex-direction: column; gap: 0.6rem; padding: 1.4rem; flex: 1; }
-.project-body .meta {
-  display: flex; justify-content: space-between; gap: 1rem;
-  font-family: var(--mono); font-size: 0.72rem;
-  letter-spacing: 0.08em; text-transform: uppercase; color: var(--cyan);
-}
-.project-body h3 { font-size: 1.5rem; }
-.project-body p { color: var(--muted); font-size: 0.95rem; }
-.link {
-  margin-top: auto; padding-top: 0.5rem;
-  font-family: var(--mono); font-size: 0.78rem; color: var(--cyan);
-  letter-spacing: 0.06em; text-transform: uppercase;
-}
-.link:hover { text-decoration: underline; }
+/* GitHub logo is white so it shows on the dark background */
+.skill-icon .devicon-github-original { color: #ffffff; }
+/* MySQL's default blue is too dark on this background */
+.skill-icon .devicon-mysql-plain { color: #4da3d4 !important; }
 
 /* ================= EXPERIENCE ================= */
 .timeline { border-bottom: 1px solid var(--line); }
@@ -445,7 +414,7 @@ main { flex: 1 0 auto; position: relative; z-index: 1; }
   .hero-actions .btn { flex: 1 1 100%; text-align: center; }
   .hero-visual { max-width: 340px; }
   .chip { font-size: 0.6rem; padding: 0.4rem 0.6rem; }
-  .project-visual { height: 190px; }
+  .skill-icon { font-size: 1.8rem; top: 1rem; right: 1rem; }
   .footer-inner { flex-direction: column; text-align: center; }
   .section-head { flex-direction: column; align-items: flex-start; }
 }
