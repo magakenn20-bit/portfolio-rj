@@ -1,148 +1,79 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const loader = document.querySelector(".page-loader");
-  const menuToggle = document.querySelector(".menu-toggle");
-  const navigation = document.querySelector(".navigation");
-  const tabButtons = [...document.querySelectorAll(".tab-button")];
-  const actionButtons = document.querySelectorAll("[data-tab]");
-  const panels = [...document.querySelectorAll(".page-panel")];
-  const currentYear = document.querySelector("#current-year");
-  const cursorGlow = document.querySelector(".cursor-glow");
+(() => {
+  const panels = Array.from(document.querySelectorAll('.panel'));
+  const tabs   = Array.from(document.querySelectorAll('.tab-list [data-tab]'));
+  const gotos  = document.querySelectorAll('[data-goto]');
+  const toggle = document.querySelector('.menu-toggle');
+  const nav    = document.getElementById('site-nav');
+  const loader = document.getElementById('loader');
+  const glow   = document.querySelector('.cursor-glow');
+  const ids    = panels.map(p => p.id);
 
-  function hideLoader() {
-    if (loader) {
-      loader.classList.add("hidden");
-    }
+  /* Mobile menu */
+  function closeMenu() {
+    nav.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
   }
+  toggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMenu();
+  });
 
-  setTimeout(hideLoader, 500);
-  window.addEventListener("load", hideLoader);
+  /* Tabs */
+  function openTab(id, updateHash = true) {
+    if (!ids.includes(id)) id = 'home';
 
-  if (currentYear) {
-    currentYear.textContent = new Date().getFullYear();
-  }
-
-  function closeMobileMenu() {
-    if (navigation) {
-      navigation.classList.remove("open");
-    }
-
-    if (menuToggle) {
-      menuToggle.classList.remove("active");
-      menuToggle.setAttribute("aria-expanded", "false");
-      menuToggle.setAttribute("aria-label", "Open navigation");
-    }
-
-    document.body.classList.remove("menu-open");
-  }
-
-  function openTab(tabId, updateUrl = true) {
-    const selectedPanel = document.getElementById(tabId);
-    const fallbackPanel = document.getElementById("home");
-    const activePanel = selectedPanel || fallbackPanel;
-
-    if (!activePanel) {
-      return;
-    }
-
-    panels.forEach((panel) => {
-      const isActive = panel === activePanel;
-
-      panel.hidden = !isActive;
-      panel.setAttribute("aria-hidden", String(!isActive));
-      panel.classList.toggle("active-panel", isActive);
+    panels.forEach(p => p.classList.toggle('active', p.id === id));
+    tabs.forEach(t => {
+      const active = t.dataset.tab === id;
+      t.classList.toggle('active', active);
+      t.setAttribute('aria-selected', String(active));
     });
 
-    tabButtons.forEach((button) => {
-      const isActive = button.dataset.tab === activePanel.id;
-
-      button.classList.toggle("active", isActive);
-      button.setAttribute("aria-selected", String(isActive));
-      button.tabIndex = isActive ? 0 : -1;
-    });
-
-    if (updateUrl) {
-      window.history.pushState(null, "", `#${activePanel.id}`);
+    if (updateHash && location.hash.slice(1) !== id) {
+      history.pushState(null, '', '#' + id);
     }
-
+    closeMenu();
     window.scrollTo(0, 0);
-    closeMobileMenu();
   }
 
-  actionButtons.forEach((element) => {
-    element.addEventListener("click", () => {
-      openTab(element.dataset.tab);
-    });
+  tabs.forEach(t => t.addEventListener('click', () => openTab(t.dataset.tab)));
+  gotos.forEach(g => g.addEventListener('click', e => {
+    e.preventDefault();
+    openTab(g.dataset.goto);
+  }));
+
+  /* Arrow keys switch tabs */
+  document.addEventListener('keydown', e => {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    const current = ids.indexOf(panels.find(p => p.classList.contains('active')).id);
+    const next = e.key === 'ArrowRight'
+      ? (current + 1) % ids.length
+      : (current - 1 + ids.length) % ids.length;
+    openTab(ids[next]);
   });
 
-  tabButtons.forEach((button, index) => {
-    button.addEventListener("keydown", (event) => {
-      let nextIndex = index;
+  /* URL hash */
+  window.addEventListener('hashchange', () => openTab(location.hash.slice(1), false));
+  openTab(location.hash.slice(1) || 'home', false);
 
-      if (event.key === "ArrowRight") {
-        nextIndex = (index + 1) % tabButtons.length;
-      }
+  /* Loader */
+  const hideLoader = () => loader && loader.classList.add('hide');
+  window.addEventListener('load', () => setTimeout(hideLoader, 300));
+  setTimeout(hideLoader, 3000); // safety fallback
 
-      if (event.key === "ArrowLeft") {
-        nextIndex = (index - 1 + tabButtons.length) % tabButtons.length;
-      }
-
-      if (event.key === "Home") {
-        nextIndex = 0;
-      }
-
-      if (event.key === "End") {
-        nextIndex = tabButtons.length - 1;
-      }
-
-      if (nextIndex !== index) {
-        event.preventDefault();
-
-        const nextButton = tabButtons[nextIndex];
-        nextButton.focus();
-        openTab(nextButton.dataset.tab);
-      }
-    });
-  });
-
-  if (menuToggle && navigation) {
-    menuToggle.addEventListener("click", () => {
-      const isOpen = navigation.classList.toggle("open");
-
-      menuToggle.classList.toggle("active", isOpen);
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      menuToggle.setAttribute(
-        "aria-label",
-        isOpen ? "Close navigation" : "Open navigation"
-      );
-
-      document.body.classList.toggle("menu-open", isOpen);
+  /* Cursor glow */
+  if (glow && window.matchMedia('(hover: hover)').matches) {
+    window.addEventListener('mousemove', e => {
+      glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
     });
   }
 
-  const initialTab = window.location.hash
-    ? window.location.hash.substring(1)
-    : "home";
-
-  openTab(initialTab, false);
-
-  window.addEventListener("popstate", () => {
-    const tabId = window.location.hash
-      ? window.location.hash.substring(1)
-      : "home";
-
-    openTab(tabId, false);
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      closeMobileMenu();
-    }
-  });
-
-  if (cursorGlow && window.matchMedia("(pointer: fine)").matches) {
-    window.addEventListener("mousemove", (event) => {
-      cursorGlow.style.left = `${event.clientX}px`;
-      cursorGlow.style.top = `${event.clientY}px`;
-    });
-  }
-});
+  /* Footer year */
+  const year = document.getElementById('year');
+  if (year) year.textContent = new Date().getFullYear();
+})();
